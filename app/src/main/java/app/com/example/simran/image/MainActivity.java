@@ -1,14 +1,5 @@
 package app.com.example.simran.image;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-
-
 import android.app.Activity;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -126,10 +117,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                     dx = (event.getX() - start.x);
                     dy = (event.getY() - start.y);
-
+                    float[] f = new float[9];
+                    matrix.getValues(f);
+                    float scaleX = f[Matrix.MSCALE_X];
                     //if image will go outside left bound
-                    if (matrixX + dx < 0){
-                        dx = -matrixX/2;
+                    if (matrixX + dx < 0 && scaleX >= 1.0f){
+                        dx = -matrixX*2;
                     }
                     //if image will go outside right bound
                     if(matrixX + dx + width > view.getWidth()){
