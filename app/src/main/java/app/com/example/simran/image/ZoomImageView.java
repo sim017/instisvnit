@@ -3,7 +3,10 @@ package app.com.example.simran.image;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.GestureDetector;
@@ -88,6 +91,15 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
 
         image.setBounds(left + scrollX, top + scrollY, right + scrollX, bottom
                 + scrollY);
+        image.draw(canvas);
+        Bitmap marker = BitmapFactory.decodeResource(getResources(),
+                R.drawable.marker);
+        canvas.drawBitmap(marker, 40, 40, null);
+        Paint mPaint = new Paint();
+        mPaint.setColor(Color.BLUE);
+        canvas.drawCircle(60, 60, 5, mPaint);
+        canvas.restore();
+        super.onDraw(canvas);
         image.draw(canvas);
     }
 
