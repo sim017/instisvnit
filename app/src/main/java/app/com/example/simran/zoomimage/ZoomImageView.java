@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -89,21 +90,28 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
         int count=0;
         image.setBounds(left + scrollX, top + scrollY, right + scrollX, bottom
                 + scrollY);
+        image.draw(canvas);
+
         Bitmap marker = BitmapFactory.decodeResource(getResources(),
                 R.drawable.marker);
         count=count+1;
+        Log.i("OnDRAW", "onDraw1: **************************"+count);
         canvas.drawBitmap(marker, 40, 40, null);
         //Paint mPaint = new Paint();
         //mPaint.setColor(Color.BLUE);
         //canvas.drawCircle(60, 60, 5, mPaint);
-        count=count+1;
+        count=count + 1;
+        Log.i("OnDRAW", "onDraw2: **************************"+count);
         //super.onDraw(canvas);
-        image.draw(canvas);
+
         count=count+1;
-        canvas.restore();
+        Log.i("OnDRAW", "onDraw3: **************************"+count);
+        //canvas.restore();
         count=count+1;
+        Log.i("OnDRAW", "onDraw4: **************************"+count);
         super.onDraw(canvas);
         count++;
+        Log.i("OnDRAW", "onDraw5: **************************"+count);
 
 
     }
