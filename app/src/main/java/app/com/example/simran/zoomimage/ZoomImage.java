@@ -1,11 +1,10 @@
-package app.com.example.simran.image;
+package app.com.example.simran.zoomimage;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-import app.com.example.simran.zoomimage.R;
 
-public class MainActivity extends Activity {
+public class ZoomImage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -17,3 +16,12 @@ public class MainActivity extends Activity {
         this.setContentView(imageView);
     }
 }
+/*public class ZoomImage extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_zoom_image);
+    }
+}
+*/

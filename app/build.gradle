@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "app.com.example.simran.image"
+        applicationId "app.com.example.simran.zoomimage"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

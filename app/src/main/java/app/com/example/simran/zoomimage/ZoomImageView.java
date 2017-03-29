@@ -1,12 +1,10 @@
-package app.com.example.simran.image;
+package app.com.example.simran.zoomimage;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.GestureDetector;
@@ -14,12 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import app.com.example.simran.zoomimage.R;
-
 /**
  * Custom class to zoom image in android
  *
-
+ * @author Yash@iotasol.com
  */
 public class ZoomImageView extends View implements GestureDetector.OnGestureListener {
 
@@ -86,23 +82,30 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
 
         if (image == null)
             return;
-
+        int count=0;
         image.setBounds(left + scrollX, top + scrollY, right + scrollX, bottom
                 + scrollY);
-        image.draw(canvas);
         Bitmap marker = BitmapFactory.decodeResource(getResources(),
                 R.drawable.marker);
+        count=count+1;
         canvas.drawBitmap(marker, 40, 40, null);
-        Paint mPaint = new Paint();
-        mPaint.setColor(Color.BLUE);
-        canvas.drawCircle(60, 60, 5, mPaint);
-        canvas.restore();
-        super.onDraw(canvas);
+        //Paint mPaint = new Paint();
+        //mPaint.setColor(Color.BLUE);
+        //canvas.drawCircle(60, 60, 5, mPaint);
+        count=count+1;
+        //super.onDraw(canvas);
         image.draw(canvas);
+        count=count+1;
+        canvas.restore();
+        count=count+1;
+        super.onDraw(canvas);
+        count++;
+
+
     }
 
     public void zoomIn() {
@@ -195,13 +198,3 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
         return true;
     }
 }
-
-/*public class ZoomImage extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zoom_image);
-    }
-}
-*/
