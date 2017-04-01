@@ -12,6 +12,8 @@ public class ZoomImage extends Activity {
                 .getWindowManager().getDefaultDisplay().getOrientation());
         imageView.setImage(this.getResources().getDrawable(R.drawable.temp),
                 this);
+        ZoomImageView v=new ZoomImageView(this,getWindow().getWindowManager().getDefaultDisplay().getOrientation());
+        v.setImage(this.getResources().getDrawable(R.drawable.marker),this);
 
         this.setContentView(imageView);
     }

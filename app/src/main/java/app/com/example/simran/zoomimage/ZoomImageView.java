@@ -24,6 +24,7 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
     private final int LANDSCAPE = 1;
     private GestureDetector gestureDetector;
     private Drawable image = null;
+    private Drawable image1=null;
     private int scalefactor = 0;
     private int orientation;
     private int zoomCtr = 0;
@@ -47,6 +48,7 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
 
     public void setImage(Bitmap bitmap, Activity activity) {
         image = new BitmapDrawable(bitmap).getCurrent();
+
         imageSetting(activity);
     }
 
