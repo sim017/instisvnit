@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ZoomImage</string>
+    <string-array name="planet_titles">
+        <item name="mercury"> Mercury</item>
+        <item name="venus">Venus</item>
+        <item name="earth">Earth</item>
+    </string-array>
+
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer close</string>
 </resources>
