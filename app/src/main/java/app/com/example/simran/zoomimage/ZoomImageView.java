@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 /**
  * Custom class to zoom image in android
  *
- * @author Yash@iotasol.com
+
  */
 public class ZoomImageView extends View implements GestureDetector.OnGestureListener {
 
