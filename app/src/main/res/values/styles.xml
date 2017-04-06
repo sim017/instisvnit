@@ -6,9 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="AppTheme.PopupOverlay">AppTheme.PopupOverlay</style>
     <style name="AppTheme.AppBarOverlay">AppTheme/AppBarOverlay</style>
+
+    <style name="AppTheme.NoActionBar">AppTheme.NoActionBar</style>
 
 </resources>

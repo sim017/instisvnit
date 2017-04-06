@@ -3,28 +3,25 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="app.com.example.simran.sim.MainActivity">
 
-    <item
-        android:id="@+id/department"
-        android:title="Department"/>
-    <item
-        android:id="@+id/seminar_halls"
-        android:title="Seminarhalls">
 
-    </item>
-    <item
-        android:id="@+id/hostels"
-        android:title="Hostels">
-
-    </item>
-    <item
-        android:id="@+id/residences"
-        android:title="residences">
-    </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_department"
 
-            android:title="@string/nav_department" />
+            android:title="@string/nav_department" >
+        <menu>
+            <group>
+                <item
+                    android:title="Computer Engineering"></item>
+                <item
+                    android:title="MSC"></item>
+                <item
+                    android:title="Electrical Engineering"></item>
+
+            </group>
+        </menu>
+
+        </item>
         <item
             android:id="@+id/nav_hostel"
 

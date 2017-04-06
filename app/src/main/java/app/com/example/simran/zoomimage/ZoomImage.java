@@ -41,7 +41,16 @@ public class ZoomImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+      //  setSupportActionBar(toolbar);
+        //((AppCompatActivity)this).getSupportActionBar().setTitle("Home");
+       // getSupportActionBar().setTitle("title");
+
+     //   ((AppCompatActivity)getActivity()).setSupportActionBar();
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
 
         mHandler = new Handler();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -77,15 +86,9 @@ public class ZoomImage extends AppCompatActivity {
         setUpNavigationView();
         mRelativeLayout.addView(imageView);
     }
-        //private void loadNavHeader() {
-            // name, website
 
 
-            // loading header background image
 
-            // showing dot next to notifications label
-           // navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
-        //}
         private void setToolbarTitle()
         {
             getSupportActionBar().setTitle(mPlanetTitles[navItemIndex]);
@@ -109,7 +112,7 @@ public class ZoomImage extends AppCompatActivity {
                         navItemIndex = 0;
                         //CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.hostels:
+                    case R.id.nav_hostel:
                         navItemIndex = 1;
                         //CURRENT_TAG = TAG_PHOTOS;
                         break;
@@ -156,10 +159,17 @@ public class ZoomImage extends AppCompatActivity {
                 return true;
             }
         });
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar, R.string.openDrawer, R.string.closeDrawer) {
             public void onDrawerClosed(View drawerView) {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+
                 super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                invalidateOptionsMenu();
             }
 
             @Override
@@ -180,6 +190,7 @@ public class ZoomImage extends AppCompatActivity {
             mDrawerLayout.closeDrawers();
             return;
         }
+        super.onBackPressed();
     }
 
 
@@ -230,7 +241,7 @@ public class ZoomImage extends AppCompatActivity {
 
 
 
-/*    @Override
+  /* @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
