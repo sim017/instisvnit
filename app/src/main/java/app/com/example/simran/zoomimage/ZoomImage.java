@@ -1,6 +1,7 @@
 package app.com.example.simran.zoomimage;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ZoomImage extends AppCompatActivity {
@@ -32,25 +35,30 @@ public class ZoomImage extends AppCompatActivity {
     private NavigationView navigationView;
     private View navHeader;
     private Toolbar toolbar;
+    private int count=0;
     public static int navItemIndex = 0;
 
     private Handler mHandler;
     private FloatingActionButton fab;
+    private ZoomImageView imageView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Anas");
+        setSupportActionBar(toolbar);
 
-      //  setSupportActionBar(toolbar);
+
         //((AppCompatActivity)this).getSupportActionBar().setTitle("Home");
        // getSupportActionBar().setTitle("title");
 
-     //   ((AppCompatActivity)getActivity()).setSupportActionBar();
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
+       // ((AppCompatActivity)getActivity()).setSupportActionBar();
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true)
+       // getSupportActionBar().setHomeButtonEnabled(true);
+       // setSupportActionBar(toolbar);
+       //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
+
 
         mHandler = new Handler();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -63,11 +71,12 @@ public class ZoomImage extends AppCompatActivity {
 
         mRelativeLayout  = (RelativeLayout) findViewById(R.id.relative_layout);
 
-        ZoomImageView imageView = new ZoomImageView(this, getWindow()
-                .getWindowManager().getDefaultDisplay().getOrientation());
+         imageView = new ZoomImageView(this, getWindow()
+                .getWindowManager().getDefaultDisplay().getOrientation(),count);
 
         imageView.setImage(this.getResources().getDrawable(R.drawable.temp),
-                this);
+               this);
+
 
         // ZoomImageView v=new ZoomImageView(this,getWindow().getWindowManager().getDefaultDisplay().getOrientation());
         // v.setImage(this.getResources().getDrawable(R.drawable.marker),this);
@@ -83,6 +92,7 @@ public class ZoomImage extends AppCompatActivity {
         //loadNavHeader();
 
         // initializing navigation menu
+     //  selectItem(0);
         setUpNavigationView();
         mRelativeLayout.addView(imageView);
     }
@@ -104,20 +114,28 @@ public class ZoomImage extends AppCompatActivity {
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
+                Toast.makeText(getBaseContext(), "clicking navigation view", Toast.LENGTH_SHORT).show();
                 //Check to see which item was being clicked and perform appropriate action
+                Toast.makeText(getBaseContext(), "menuItme"+menuItem.getItemId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.id.nav_hostel+"Hello", Toast.LENGTH_SHORT).show();
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_department:
                         navItemIndex = 0;
+                        //Toast.makeText(getBaseContext(), "index"+navItemIndex, Toast.LENGTH_SHORT).show();
+
                         //CURRENT_TAG = TAG_HOME;
                         break;
                     case R.id.nav_hostel:
                         navItemIndex = 1;
+                        //Toast.makeText(getBaseContext(), "index"+navItemIndex, Toast.LENGTH_SHORT).show();
+                        selectItem(navItemIndex);
                         //CURRENT_TAG = TAG_PHOTOS;
                         break;
                     case R.id.nav_library:
                         navItemIndex = 2;
+                        //Toast.makeText(getBaseContext(), "index"+navItemIndex, Toast.LENGTH_SHORT).show();
+                        selectItem(navItemIndex);
                        // CURRENT_TAG = TAG_MOVIES;
                         break;
                     case R.id.nav_canteen:
@@ -159,12 +177,18 @@ public class ZoomImage extends AppCompatActivity {
                 return true;
             }
         });
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar, R.string.openDrawer, R.string.closeDrawer) {
+        mDrawerToggle = new ActionBarDrawerToggle(this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        );
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar, R.string.openDrawer, R.string.closeDrawer) {
             public void onDrawerClosed(View drawerView) {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
 
                 super.onDrawerClosed(drawerView);
             }
+
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -178,6 +202,28 @@ public class ZoomImage extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar, R.string.openDrawer, R.string.closeDrawer) {
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+
+                super.onDrawerClosed(drawerView);
+            }
+
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                super.onDrawerOpened(drawerView);
+                navigationView.bringToFront();
+                mDrawerLayout.requestLayout();
+            }
+        };
         //Setting the actionbarToggle to drawer layout
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
 
@@ -188,11 +234,12 @@ public class ZoomImage extends AppCompatActivity {
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawers();
+            Toast.makeText(getBaseContext(), "clicking textview", Toast.LENGTH_SHORT).show();
             return;
+
         }
         super.onBackPressed();
     }
-
 
    /* mTitle = mDrawerTitle = getTitle();
         //mPlanetTitles = getResources().getStringArray(R.array.planet_titles);
@@ -241,12 +288,12 @@ public class ZoomImage extends AppCompatActivity {
 
 
 
-  /* @Override
+   @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }*/
+       super.onPostCreate(savedInstanceState);
+       // Sync the toggle state after onRestoreInstanceState has occurred.
+       mDrawerToggle.syncState();
+   }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -259,6 +306,7 @@ public class ZoomImage extends AppCompatActivity {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            Toast.makeText(getBaseContext(), "option selected", Toast.LENGTH_SHORT).show();
             return true;
         }
         // Handle your other action bar items...
@@ -268,9 +316,41 @@ public class ZoomImage extends AppCompatActivity {
 
 
     private void selectItem(int position) {
-        mDrawerList.setItemChecked(position, true);
+       // mDrawerList.setItemChecked(position, true);
+        //Toast.makeText(getBaseContext(), "psoition"+position, Toast.LENGTH_SHORT).show();
         setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        TextView tvUserName = (TextView) findViewById(R.id.content);
+
+        tvUserName.setShadowLayer(15, 0, 0, Color.RED);
+        switch (position) {
+            case 1:
+
+                tvUserName.setText("No event going on for now!!! "
+                        );
+                // mRelativeLayout.addView(R.id.relative_layout);
+                tvUserName.setVisibility(tvUserName.VISIBLE);
+                tvUserName.bringToFront();
+                count=count+1;
+                //imageView.callThis(this,2);
+                count=0;
+                //Toast.makeText(getBaseContext(), "inside hostel", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 2:
+                //TextView tvUserName = (TextView) findViewById(R.id.nav_hostel);
+
+                tvUserName.setText("Library will be open on saturday only till 5");
+                // mRelativeLayout.addView(R.id.relative_layout);
+                tvUserName.setVisibility(tvUserName.VISIBLE);
+                tvUserName.bringToFront();
+                //imageView.callThis(this,2);
+                // tvUserName.setText("My Name");
+                //Toast.makeText(getBaseContext(), "inside library", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+            mDrawerLayout.closeDrawers();
+
 
     }
 
@@ -280,6 +360,7 @@ public class ZoomImage extends AppCompatActivity {
 
         if (navItemIndex == 0) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
+            //Toast.makeText(getBaseContext(), "menu1", Toast.LENGTH_SHORT).show();
         }
 
         // when fragment is notifications, load the menu created for notifications

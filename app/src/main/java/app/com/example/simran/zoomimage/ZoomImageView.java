@@ -3,11 +3,9 @@ package app.com.example.simran.zoomimage;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +18,7 @@ import android.widget.FrameLayout;
  */
 public class ZoomImageView extends View implements GestureDetector.OnGestureListener {
 
-    private static final int SCALING_FACTOR = 50;
+    private static final int SCALING_FACTOR = 150;
     private final int LANDSCAPE = 1;
     private GestureDetector gestureDetector;
     private Drawable image = null;
@@ -29,16 +27,31 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
     private int orientation;
     private int zoomCtr = 0;
     private long lastTouchTime = 0;
+    int anas=0;
+    Context hi;
+    int sx=30,sy=40;
     private int winX, winY, imageX, imageY, scrollX = 0, scrollY = 0, left,
             top, bottom, right;
+    Canvas canvas1;
 
-    public ZoomImageView(Context context, int orientation) {
+    public ZoomImageView(Context context, int orientation,int no) {
         super(context);
         setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT,
                 FrameLayout.LayoutParams.FILL_PARENT));
         this.orientation = orientation;
+        //Toast.makeText(context,no+"Yo" +anas, Toast.LENGTH_SHORT).show();
         gestureDetector = new GestureDetector(this);
     }
+
+
+  public void callThis(Context context,int hi)
+  {   anas=hi;
+      int cnt=0;
+
+      //Toast.makeText(,hi+"Yo" , Toast.LENGTH_SHORT).show();
+     // Toast.makeText(context,"Yo" +anas, Toast.LENGTH_SHORT).show();
+
+  }
 
 
     public void setImage(Drawable bitmap, Activity activity) {
@@ -85,35 +98,51 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        //super.onDraw(canvas);
+        super.onDraw(canvas);
 
         if (image == null)
             return;
         int count=0;
-        image.setBounds(left + scrollX, top + scrollY, right + scrollX, bottom
-                + scrollY);
+ {
+    image.setBounds(left + scrollX, top + scrollY, right + scrollX, bottom
+            + scrollY);
+      /*{
+         image.draw(canvas);
+         image.setBounds(left + scrollX + 1, top + scrollY, right + scrollX, bottom
+                 + scrollY);
+         image.draw(canvas);
+         image.setBounds(left + scrollX + 1, top + scrollY, right + scrollX, bottom
+                 + scrollY);
+         image.draw(canvas);
+         image.setBounds(left + scrollX + 1, top + scrollY, right + scrollX, bottom
+                 + scrollY);
+         image.draw(canvas);
+         image.setBounds(left + scrollX + 1, top + scrollY, right + scrollX, bottom
+                 + scrollY);
+         image.draw(canvas);
+         image.setBounds(left + scrollX + 1
+                 , top + scrollY, right + scrollX, bottom
+                 + scrollY);
+     }*/
+}
         image.draw(canvas);
 
-        Bitmap marker = BitmapFactory.decodeResource(getResources(),
-                R.drawable.marker);
-        count=count+1;
-        Log.i("OnDRAW", "onDraw1: **************************"+count);
-        canvas.drawBitmap(marker, 40, 40, null);
-        //Paint mPaint = new Paint();
-        //mPaint.setColor(Color.BLUE);
+
+
+
         //canvas.drawCircle(60, 60, 5, mPaint);
+
+
         count=count + 1;
-        Log.i("OnDRAW", "onDraw2: **************************"+count);
-        //super.onDraw(canvas);
+
 
         count=count+1;
-        Log.i("OnDRAW", "onDraw3: **************************"+count);
+
         //canvas.restore();
         count=count+1;
-        Log.i("OnDRAW", "onDraw4: **************************"+count);
+
         super.onDraw(canvas);
         count++;
-        Log.i("OnDRAW", "onDraw5: **************************"+count);
 
 
     }
@@ -144,6 +173,8 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
         } else if (scrollY + bottom < winY) {
             scrollY = winY - bottom;
         }
+      //  anas=5;
+       // Toast.makeText(hi,anas+"Yo" +anas+"Yo" +anas, Toast.LENGTH_SHORT).show();
         invalidate();
     }
 
@@ -171,6 +202,8 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
         if (zoomCtr == 0)
             return false;
         scroll((int) (e2.getX() - e1.getX()), (int) (e2.getY() - e1.getY()));
+        //scroll(100,150);
+
         return true;
     }
 
@@ -181,6 +214,8 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
             return;
         }
         zoomCtr--;
+
+
         zoomOut();
     }
 
@@ -205,6 +240,14 @@ public class ZoomImageView extends View implements GestureDetector.OnGestureList
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         // TODO Auto-generated method stub
+        //scroll();
+      //  Bitmap imageView = BitmapFactory.decodeResource(getResources(),
+        //        R.drawable.marker);
+        //int[] location = new int[2];
+       // imageView.getLocationOnScreen(location);
+
+        //int x = location[0];
+        //int y = location[1];
         return true;
     }
 }

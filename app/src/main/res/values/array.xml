@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="nav_item_activity_titles">
+        <item>Department</item>
+        <item>Hostels</item>
+        <item>Library</item>
+        <item>Canteen</item>
+        <item>Banks</item>
+        <item>Sports</item>
+
+    </array>
+</resources>

@@ -48,12 +48,31 @@
         app:headerLayout="@layout/nav_drawer"
         android:divider="@android:color/black"
         android:dividerHeight="0dp"
-        app:menu="@menu/menu_main" />
+        app:menu="@menu/menu_main">
+        </android.support.design.widget.NavigationView>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:clipChildren="false"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        android:padding="10dp"
+        android:background="#336699"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:layout_gravity="bottom" android:layout_alignParentBottom="true"/>
+
         </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
